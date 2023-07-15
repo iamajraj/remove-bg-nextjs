@@ -12,6 +12,7 @@ export default function Home() {
   const [image, setImage] = useState<File | null>(null);
   const [removedBGImage, setRemovedBGImage] = useState<string | null>();
   const [progressing, setProgressing] = useState(false);
+  const [error, setError] = useState('');
   const inp = useRef<HTMLInputElement | null>(null);
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,20 +38,24 @@ export default function Home() {
     setProgressing(true);
     const data = new FormData();
     data.append('file', image);
-    const response = await axios.post('/api/rmbg', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      responseType: 'blob',
-    });
-    const dataUrl = await fileToDataUrl(response.data);
-    setRemovedBGImage(dataUrl);
+    try {
+      const response = await axios.post('/api/rmbg', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        responseType: 'blob',
+      });
+      const dataUrl = await fileToDataUrl(response.data);
+      setRemovedBGImage(dataUrl);
+    } catch (err) {
+      setError('Something went wrong, Please try again.');
+    }
     setProgressing(false);
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto pt-10 pb-20 h-screen flex flex-col">
-      <div className="flex justify-between gap-4">
+    <div className="w-full max-w-7xl mx-auto pt-10 pb-20 h-screen flex flex-col px-5">
+      <div className="flex flex-col md:flex-row justify-between gap-4">
         <h1 className="text-3xl">
           <span className="font-bold">rEmove</span> background from Image
         </h1>
@@ -68,8 +73,8 @@ export default function Home() {
         </a>
       </div>
 
-      <div className="flex items-center flex-1 gap-5 mt-10 relative">
-        <div className="border flex-1 h-full max-h-[700px] w-1/2 rounded-lg flex flex-col gap-4 p-5">
+      <div className="flex flex-col w-full md:flex-row items-center flex-1 gap-3 mt-10 relative">
+        <div className="border flex-1 w-full h-full max-h-[700px] md:w-1/2 rounded-lg flex flex-col gap-4 p-5">
           {previewImage ? (
             <img src={previewImage} className="h-[77%] w-full aspect-square" />
           ) : (
@@ -99,10 +104,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="absolute left-1/2 -ml-5 bg-white shadow-lg rounded-full p-2 z-10 border">
+        <div className="bg-white shadow-lg rounded-full p-2 border rotate-90 md:rotate-0">
           {progressing ? (
             <svg
-              className="animate-spin w-10 h-10 text-indigo-500"
+              className="animate-spin w-8 h-8 text-indigo-500"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -128,7 +133,7 @@ export default function Home() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-10 h-10"
+              className="w-8 h-8"
             >
               <path
                 strokeLinecap="round"
@@ -139,14 +144,14 @@ export default function Home() {
           )}
         </div>
 
-        <div className="relative border flex-1 h-full max-h-[500px] w-1/2 rounded-lg flex items-center justify-center">
+        <div className="relative border flex-1 w-full h-full min-h-[400px] max-h-[500px] md:w-1/2 rounded-lg flex items-center justify-center mb-10 md:mb-0">
           {progressing ? (
             <Shimmer width={300} height={300} />
           ) : removedBGImage ? (
             <img src={removedBGImage} className="h-full w-full aspect-square" />
           ) : (
             <p className="font-light underline">
-              *Your result will appear here*
+              {error ? error : '*Your result will appear here*'}
             </p>
           )}
           {removedBGImage && (
