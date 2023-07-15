@@ -51,7 +51,7 @@ export default function Home() {
     <div className="w-full max-w-7xl mx-auto pt-10 pb-20 h-screen flex flex-col">
       <div className="flex justify-between gap-4">
         <h1 className="text-3xl">
-          <span className="font-bold">rEmove</span> background Image
+          <span className="font-bold">rEmove</span> background from Image
         </h1>
         <a
           href="https://github.com/iamajraj"
