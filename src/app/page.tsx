@@ -53,12 +53,18 @@ export default function Home() {
         <h1 className="text-3xl">
           <span className="font-bold">rEmove</span> background Image
         </h1>
-        <div className="flex items-center gap-3">
-          <p className="w-8 h-8 border rounded-full flex items-center justify-center">
-            R
-          </p>
-          <span>raaaaaj@email.com</span>
-        </div>
+        <a
+          href="https://github.com/iamajraj"
+          className="flex items-center gap-1"
+          target="_blank"
+        >
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+            alt=""
+            className="w-5 h-5"
+          />
+          <p>/ iamajraj</p>
+        </a>
       </div>
 
       <div className="flex items-center flex-1 gap-5 mt-10 relative">
@@ -97,7 +103,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="absolute left-1/2 -ml-5 bg-white shadow-lg rounded-full p-2">
+        <div className="absolute left-1/2 -ml-5 bg-white shadow-lg rounded-full p-2 z-10 border">
           {progressing ? (
             <svg
               className="animate-spin w-10 h-10 text-indigo-500"
