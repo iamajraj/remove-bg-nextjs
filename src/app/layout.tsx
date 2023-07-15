@@ -6,8 +6,8 @@ import Provider from '../components/Provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Remove bg',
-  description: 'remove any image background',
+  title: 'Remove Background | iamajraj',
+  description: 'Remove the background from your image in just few clicks',
 };
 
 export default function RootLayout({
