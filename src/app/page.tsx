@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { fileToDataUrl } from '../lib/fileToDataUrl';
 import { Shimmer } from 'react-shimmer';
+import Button from '../components/Button';
 
 export default function Home() {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -84,22 +85,17 @@ export default function Home() {
               id="img"
               accept=".png,.jpeg,.jpg"
             />
-            <button
+            <Button
               onClick={() => {
                 inp.current?.click();
               }}
               disabled={progressing}
-              className="w-full py-4 rounded-full border-gray-800 border hover:scale-[1.02] transition-transform active:scale-95 disabled:text-gray-500 disabled:bg-gray-100"
             >
               {previewImage ? 'Change Image' : 'Select Image'}
-            </button>
-            <button
-              onClick={onUpload}
-              disabled={image === null || progressing}
-              className="w-full py-4 rounded-full border-gray-800 border hover:scale-[1.02] transition-transform active:scale-95 disabled:text-gray-500 disabled:bg-gray-100"
-            >
+            </Button>
+            <Button onClick={onUpload} disabled={image === null || progressing}>
               {progressing ? 'Processing...' : 'Remove Background'}
-            </button>
+            </Button>
           </div>
         </div>
 

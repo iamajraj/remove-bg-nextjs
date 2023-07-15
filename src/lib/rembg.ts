@@ -47,6 +47,6 @@ export const rembg = async ({
     return response;
   } catch (error) {
     console.error(error);
-    return { outputImagePath: null, cleanup: null };
+    return null;
   }
 };
